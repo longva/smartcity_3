@@ -13,7 +13,8 @@ function createPlane() {
 	});
 
 	var imageFile = "grass.jpg";
-	var text = THREE.ImageUtils.loadTexture("../textures/" + imageFile);
+	//var text = THREE.ImageUtils.loadTexture("../textures/" + imageFile);
+	var text = new THREE.TextureLoader().load("../textures/" + imageFile);
 	materialPark.map = text;
 
 

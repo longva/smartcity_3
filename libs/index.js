@@ -35,19 +35,20 @@ function init() {
 
 	// create a scene, that will hold all our elements such as objects, cameras and lights.
 	scene = new THREE.Scene();
+	scene.background = new THREE.Color(0xffffee);
 	buildings = new THREE.Group();
 	buildings.name = "buildings";
 	scene.add(buildings);
 
 	// create a camera, which defines where we're looking at.
-	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
 
 	renderer = new THREE.WebGLRenderer({ antialias: true, canvas: elements.canvas });
 	elements.canvas.addEventListener("mousedown", onDocumentMouseDown, false);
 	renderer.setClearColor(new THREE.Color(0xffffee, 1.0));
 	//renderer.setSize(window.innerWidth, window.innerHeight);
-	renderer.shadowMapEnabled = true;
-	renderer.shadowMapType = THREE.PCFShadowMap;
+	renderer.shadowMap.enabled = true;
+	renderer.shadowMap.type = THREE.PCFShadowMap;
 
 	// position and point the camera to the center of the scene
 	camera.position.x = 100;
@@ -107,17 +108,17 @@ function init() {
 	light = new THREE.DirectionalLight(0xffffff);
 	light.position.set(100, 70, 0);
 	light.castShadow = true;
-	light.shadowCameraNear = 2;
-	light.shadowCameraFar = 200;
-	light.shadowCameraLeft = -50;
-	light.shadowCameraRight = 50;
-	light.shadowCameraTop = 50;
-	light.shadowCameraBottom = -50;
+	light.shadow.camera.near = 2;
+	light.shadow.camera.far = 200;
+	light.shadow.camera.left = -50;
+	light.shadow.camera.right = 50;
+	light.shadow.camera.top = 50;
+	light.shadow.camera.bottom = -50;
 
 	light.distance = 200;
 	light.intensity = 1.0;
-	light.shadowMapHeight = 1024;
-	light.shadowMapWidth = 1024;
+	light.shadow.mapSize.height = 1024;
+	light.shadow.mapSize.width = 1024;
 
 	scene.add(light);
 
@@ -134,7 +135,7 @@ function init() {
 			light.intensity = 0.5 + Math.sin(theta) * 0.5;
 			theta += ADD;
 
-			intensityBarGroup.children.forEach(intensityBar => {
+			intensityBarGroup.children.forEach((intensityBar) => {
 				intensityBar.visible = true;
 				updateIntensityBar(intensityBar, 3, light);
 			});
@@ -248,7 +249,7 @@ function unSelect() {
 	elements.removeBuilding.disabled = true;
 	elements.updateBuilding.disabled = true;
 	elements.selectLandmark.disabled = true;
-	buildings.children.forEach(object => {
+	buildings.children.forEach((object) => {
 		if (object.name.substring(0, 4) == "cube") {
 			object.material.transparent = false;
 			object.material.opacity = 1.0;
@@ -318,7 +319,7 @@ const elements = {
 	updateBuilding: document.querySelector(".update_building_btn"),
 	selectLandmark: document.querySelector(".select_landmark_btn"),
 	skyVisibility: document.querySelector(".sky_visibility_btn"),
-	selectSky: document.querySelector(".select_sky_btn")
+	selectSky: document.querySelector(".select_sky_btn"),
 };
 
 // event listener for the toggleMode button
@@ -347,14 +348,14 @@ elements.loadScene.addEventListener("click", () => {
 
 	sceneLoader.parse(
 		JSON.parse(json),
-		function(e) {
+		function (e) {
 			scene = e.scene;
 			// update referance to buildings
 			if (scene.getObjectByName("buildings")) {
 				buildings = scene.getObjectByName("buildings");
 				var num = 0;
 				if (buildings.children.length > 0) {
-					buildings.children.forEach(building => {
+					buildings.children.forEach((building) => {
 						if (num < parseInt(building.name.substring(5))) {
 							num = parseInt(building.name.substring(5));
 						}
@@ -369,13 +370,24 @@ elements.loadScene.addEventListener("click", () => {
 });
 
 function loadTerrain() {
-	var loader = new THREE.OBJMTLLoader();
-	loader.load("../assets/models/terrain.obj", "../assets/models/terrain.mtl", function(loadedMesh) {
-		loadedMesh.scale.set(1, 1, 1);
-		loadedMesh.position.y = -2;
-		loadedMesh.rotation.x = 0.0;
-		scene.add(loadedMesh);
+	var loader = new THREE.GLTFLoader();
+
+	loader.load("../assets/models/map.glb", function (gltf) {
+		// var mesh = gltf.scene.children[0];
+		// mesh.scale.set(100, 100, 100);
+		// scene.add(mesh);
+		var terrain = gltf.scene;
+		//terrain.position.y = 100;
+		scene.add( gltf.scene );
 	});
+
+	// var loader = new THREE.OBJMTLLoader();
+	// loader.load("../assets/models/terrain.obj", "../assets/models/terrain.mtl", function(loadedMesh) {
+	// 	loadedMesh.scale.set(1, 1, 1);
+	// 	loadedMesh.position.y = -2;
+	// 	loadedMesh.rotation.x = 0.0;
+	// 	scene.add(loadedMesh);
+	// });
 }
 
 async function getTest() {
@@ -484,7 +496,7 @@ elements.animationStartBtn.addEventListener("click", () => {
 	toggleAnimation = !toggleAnimation;
 	elements.animationStartBtn.innerHTML = toggleAnimation ? "Stop Animation" : "Start Animation";
 	if (!toggleAnimation) {
-		intensityBarGroup.children.forEach(intensityBar => {
+		intensityBarGroup.children.forEach((intensityBar) => {
 			intensityBar.visible = false;
 		});
 	}
