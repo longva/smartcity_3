@@ -1,99 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Smart City</title>
-		<link rel="stylesheet" href="css/style.css" />
-		<script type="text/javascript" src="libs/three.js"></script>
-		<script type="text/javascript" src="libs/SceneLoader.js"></script>
-		<script type="text/javascript" src="libs/SceneExporter.js"></script>
-	</head>
-
-	<body>
-		<div class="container">
-			<header class="header">
-				<h1>Smart City</h1>
-			</header>
-			<div class="content">
-				<nav>
-					<div class="sidebar play_mode">
-						<div class="visibility_info">
-							Landmark Visibility
-							<div class="total_buildings">Total Buildings: 0</div>
-							<div class="total_hits">Total Hits: 0</div>
-							<div class="visibility_score">Score: 0 %</div>
-						</div>
-						<div class="visibility_info">
-							Sky Visibility
-							<div class="sky_score">Score: 0 %</div>
-						</div>
-
-						<div class="inputFields">
-							<div class="inputLine">
-								Resolution: <input type="text" class="resoulution_input" size="3" value="24" />
-							</div>
-							<div class="inputLine">
-								Pattern: <input type="text" class="find_pattern_input" size="7" value="101" />
-							</div>
-						</div>
-						<button class="visibility_btn btn">Compute Visibility</button>
-						<button class="clear_btn btn">Clear Lines</button>
-						<button class="start_animation btn">Start Animation</button>
-						<button class="shadow_map_btn btn">Compute Shadow Map</button>
-						<button class="changes_map_btn btn">Compute Changes</button>
-						<button class="find_pattern_btn btn">Find Pattern</button>
-						<button class="find_pattern_variation_btn btn">Find Pattern Variation</button>
-						<button class="sky_visibility_btn btn">Sky Visibility</button>
-					</div>
-					<div class="sidebar edit_mode">
-						Edit Mode
-						<button class="load_scene_btn btn">Load Scene</button>
-						<button class="save_scene_btn btn">Save Scene</button>
-						<button class="add_building_btn btn">Add Building</button>
-						<button class="remove_building_btn btn">Remove Building</button>
-						<button class="update_building_btn btn">Update Selected</button>
-						<button class="select_landmark_btn btn">Select Landmark</button>
-						<button class="select_sky_btn btn">Select SkyPoint</button>
-
-						<div class="edit_info">
-							<div id="selected_building">Selected Building: -</div>
-
-							<div id="edit_values" class="inputFields">
-								<div class="inputLine">Pos X: <input type="text" id="pos_x" size="1" value="0" /></div>
-								<div class="inputLine">Pos Z: <input type="text" id="pos_z" size="1" value="0" /></div>
-								<div class="inputLine">Width: <input type="text" id="width" size="1" value="1" /></div>
-								<div class="inputLine">Height: <input type="text" id="height" size="1" value="1" /></div>
-								<div class="inputLine">Depth: <input type="text" id="depth" size="1" value="1" /></div>
-								Texture: <select id="texture" name="texture">
-									<option value="0">None</option>
-									<option value="1">Metal</option>
-									<option value="2">Wood</option>
-									<option value="3">Stone</option>
-									<option value="4">Brick Wall</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div class="sidebar">
-						<button class="toggle_mode_btn btn">Edit Mode</button>
-					</div>
-				</nav>
-				<main class="city-view">
-					<canvas class="c"></canvas>
-				</main>
-				<div id="myDiv"></div>
-			</div>
-		</div>
-		<script type="text/javascript" src="libs/plane.js"></script>
-		<script type="text/javascript" src="libs/buildings.js"></script>
-		<script type="text/javascript" src="libs/shadowMap.js"></script>
-		<script type="text/javascript" src="libs/landmarkVisibility.js"></script>
-		<script type="text/javascript" src="libs/skyExposure.js"></script>
-		<script type="text/javascript" src="libs/lightIntensity.js"></script>
-		<script type="text/javascript" src="libs/OrbitControls.js"></script>
-		<script type="text/javascript" src="libs/GLTFLoader.js"></script>
-
-		<script type="text/javascript" src="libs/plotly-latest.min.js"></script>
-		<script type="text/javascript" src="libs/index.js"></script>
-	</body>
+<html>
+   <head>
+      <style>
+         body, html { border: 0; margin: 0; padding: 0}
+         #map { height: 100vh; width: 100vw; }
+      </style>
+      <script src="https://unpkg.com/three/build/three.min.js"></script>
+      <script src="https://unpkg.com/@here/harp.gl/dist/harp.js"></script>
+      <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+      <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+      <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+      <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+      <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+   </head>
+   <body>
+      <canvas id="map"></canvas>
+      <script src="intro.js"></script>
+   </body>
 </html>
