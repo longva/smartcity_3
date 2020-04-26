@@ -61,3 +61,19 @@
 /* Text fields */
 .visibility_score {
 }
+
+@media (max-width: 600px) {
+	.header {
+		color: red;
+		display: none;
+	}
+
+	.sidebar {
+		padding: 0rem;
+		width: 5rem;
+	}
+
+	.btn {
+		height: 3rem;
+	}
+}
