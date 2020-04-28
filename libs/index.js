@@ -373,21 +373,27 @@ function loadTerrain() {
 	var loader = new THREE.GLTFLoader();
 
 	loader.load("../assets/models/map.glb", function (gltf) {
-		// var mesh = gltf.scene.children[0];
-		// mesh.scale.set(100, 100, 100);
-		// scene.add(mesh);
-		var terrain = gltf.scene;
-		//terrain.position.y = 100;
-		scene.add( gltf.scene );
-	});
+		var num = buildings.children.length + 1;
 
-	// var loader = new THREE.OBJMTLLoader();
-	// loader.load("../assets/models/terrain.obj", "../assets/models/terrain.mtl", function(loadedMesh) {
-	// 	loadedMesh.scale.set(1, 1, 1);
-	// 	loadedMesh.position.y = -2;
-	// 	loadedMesh.rotation.x = 0.0;
-	// 	scene.add(loadedMesh);
-	// });
+		gltf.scene.traverse(function (item) {
+			if (item.type == "Mesh") {
+				if (item.name != "EXPORT_GOOGLE_SAT_WM") {
+					var geometry = new THREE.BufferGeometry().copy(item.geometry);
+					var material = new THREE.MeshPhongMaterial();
+					var mesh = new THREE.Mesh(geometry, material);
+					num += 1;
+					mesh.name = "cube-" + num;
+					mesh.geometry.parameters = { width: 200, height: 200, depth: 200 };
+					mesh.position.y = item.position.y;
+					buildings.add(mesh);
+				}
+				else{
+					scene.add(item);
+				}
+			}
+		});
+
+	});
 }
 
 async function getTest() {

@@ -22,7 +22,7 @@ const omvDataSource = new harp.OmvDataSource({
 	baseUrl: "https://xyz.api.here.com/tiles/herebase.02",
 	apiFormat: harp.APIFormat.XYZOMV,
 	styleSetName: "tilezen",
-	authenticationCode: "APmhA9i_QeennYNUNZ7D5AA",
+	authenticationCode: "AAQvEjUFTdOL3EX8ymckLAA",
 });
 map.addDataSource(omvDataSource);
 
@@ -71,3 +71,7 @@ canvas.onclick = (evt) => {
       window.location.href = "index2.html";
 	}
 };
+
+function goToCity() {
+	window.location.href = "index2.html";
+  }
