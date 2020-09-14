@@ -45,8 +45,9 @@ function init() {
 
 	renderer = new THREE.WebGLRenderer({ antialias: true, canvas: elements.canvas });
 	elements.canvas.addEventListener("mousedown", onDocumentMouseDown, false);
+	window.addEventListener('resize', resize, false);
 	renderer.setClearColor(new THREE.Color(0xffffee, 1.0));
-	//renderer.setSize(window.innerWidth, window.innerHeight);
+	resize();
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.PCFShadowMap;
 
@@ -178,7 +179,6 @@ function init() {
 		// render using requestAnimationFrame
 		var delta = clock.getDelta();
 		orbitControls.update(delta);
-		resizeCanvasToDisplaySize();
 		requestAnimationFrame(render);
 		renderer.render(scene, camera);
 	}
@@ -192,15 +192,13 @@ function onResize() {
 }
 
 // function that makes it possible to resize the window
-function resizeCanvasToDisplaySize() {
+function resize() {
 	const canvas = renderer.domElement;
 	const width = canvas.clientWidth;
 	const height = canvas.clientHeight;
-	if (canvas.width !== width || canvas.height !== height) {
-		renderer.setSize(width, height, false);
-		camera.aspect = width / height;
-		camera.updateProjectionMatrix();
-	}
+	renderer.setSize(width, height, false);
+	camera.aspect = width / height;
+	camera.updateProjectionMatrix();
 }
 
 function onDocumentMouseDown(event) {
