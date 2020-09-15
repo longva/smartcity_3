@@ -57,7 +57,7 @@ function init() {
 	camera.position.z = 100;
 	camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-	orbitControls = new THREE.OrbitControls(camera);
+	orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
 	var clock = new THREE.Clock();
 
 	// create grid helper
@@ -370,7 +370,7 @@ elements.loadScene.addEventListener("click", () => {
 function loadTerrain() {
 	var loader = new THREE.GLTFLoader();
 
-	loader.load("../assets/models/map.glb", function (gltf) {
+	loader.load("../smartcity/assets/models/map.glb", function (gltf) {
 		var num = buildings.children.length + 1;
 
 		gltf.scene.traverse(function (item) {
@@ -480,7 +480,7 @@ function keyCommands(e) {
 		} else {
 			camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 1000); //fov, aspect, near, far
 			camera.position.set(100, 100, 100);
-			orbitControls = new THREE.OrbitControls(camera);
+			orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
 			console.log("PerspectiveCamera");
 		}
 		camera.lookAt(scene.position);
