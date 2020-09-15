@@ -14,7 +14,7 @@ function createPlane() {
 
 	var imageFile = "grass.jpg";
 	//var text = THREE.ImageUtils.loadTexture("../textures/" + imageFile);
-	var text = new THREE.TextureLoader().load("../textures/" + imageFile);
+	var text = new THREE.TextureLoader().load("../smartcity/textures/" + imageFile);
 	materialPark.map = text;
 
 

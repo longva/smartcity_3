@@ -26,7 +26,7 @@ let addCube = function(xPos, zPos, width, heigth, depth, texture) {
 		}
 
         //var text = THREE.ImageUtils.loadTexture("../textures/" + imageFile);
-        var text = new THREE.TextureLoader().load("../textures/" + imageFile);
+        var text = new THREE.TextureLoader().load("../smartcity/textures/" + imageFile);
 		var mat = new THREE.MeshPhongMaterial();
 		mat.map = text;
 	}
