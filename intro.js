@@ -22,7 +22,7 @@ const omvDataSource = new harp.OmvDataSource({
 	baseUrl: "https://xyz.api.here.com/tiles/herebase.02",
 	apiFormat: harp.APIFormat.XYZOMV,
 	styleSetName: "tilezen",
-	authenticationCode: "AAQvEjUFTdOL3EX8ymckLAA",
+	authenticationCode: "AEL7ua7dS-WFpNdQs1SRVgA",
 });
 map.addDataSource(omvDataSource);
 
